@@ -1,38 +1,259 @@
-.App {
+/* --- Setari Generale & Navigatie Dev --- */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Roboto+Condensed:wght@700&display=swap');
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  font-family: 'Roboto', sans-serif;
+  background-color: #0a0a0a;
+  color: white;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.dev-nav {
+  background-color: #20232a;
+  padding: 10px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10000;
+  box-sizing: border-box;
+}
+.dev-nav a {
+  color: #61dafb;
+  margin: 0 15px;
+  text-decoration: none;
+  font-weight: bold;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
+/* --- Stiluri pentru JOCUL "100 de Romani" (/ - GameHostPage) --- */
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.app-container {
+  width: 100vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
+  padding: 2vmin;
+  padding-top: 50px; /* Spatiu pentru dev-nav */
+  box-sizing: border-box;
+}
+
+.game-frame {
+  width: 100%;
+  height: 98%;
+  max-width: 1700px;
+  max-height: 900px;
+  aspect-ratio: 16 / 9;
+  background: radial-gradient(circle, #001f4d, #000c1a);
+  border: 10px solid #222;
+  border-radius: 50px;
+  padding: 20px;
+  position: relative;
+  background-image: radial-gradient(circle at center, white 1px, transparent 1px);
+  background-size: 15px 15px;
+  box-shadow: 0 0 30px rgba(76, 172, 255, 0.7), inset 0 0 20px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+}
+
+.top-panel { display: flex; justify-content: center; }
+.score-display, .question-display { background: linear-gradient(180deg, #0055a4, #003366); border: 3px solid #ccc; border-radius: 10px; color: #fff; display: flex; justify-content: center; align-items: center; box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5); position: relative; overflow: hidden; text-shadow: 0 0 10px #fff; }
+.score-display { width: 14vw; max-width: 200px; height: 8vh; max-height: 100px; font-size: 6rem; font-weight: bold; }
+.score-display::before, .question-display::before { content: ''; position: absolute; top: 50%; left: 50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 60%); transform: translate(-50%, -50%); animation: light-pulse 5s infinite linear; }
+@keyframes light-pulse { 0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.7; } 50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; } 100% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.7; } }
+.question-panel { padding: 2vmin 0 3vmin 0; text-align: center; }
+.question-display { width: 100%; padding: 1vmin 2vmin; box-sizing: border-box; font-family: 'Roboto Condensed', sans-serif; font-size: 6vmin; text-transform: uppercase; }
+
+.game-board { flex-grow: 1; background: #001a33; border: 8px solid #ff8c00; border-radius: 20px; padding: 1.5vmin; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5vmin; box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.7); min-height: 0; margin: 0; }
+.column { display: grid; grid-template-rows: repeat(4, 1fr); gap: 1.5vmin; justify-items: center; }
+
+.answer-slot { width: 90%; perspective: 1000px; }
+.answer-slot.empty { background: rgba(0, 10, 20, 0.5); border-radius: 15px; border: 2px solid #fff; }
+.answer-slot:not(.empty) { cursor: pointer; }
+
+.answer-card { width: 100%; height: 100%; position: relative; transition: transform 0.8s; transform-style: preserve-3d; }
+.answer-card.is-flipped { transform: rotateY(180deg); }
+
+.card-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: space-between; font-size: 2.2vmin; border-radius: 15px; border: 2px solid #fff; box-sizing: border-box; padding: 0 2vmin; }
+.card-face-front { background: linear-gradient(to bottom, #007bff, #0056b3); }
+.number-oval { width: 7vmin; height: 7vmin; min-width: 5vmin; background-color: #003366; border-radius: 50%; display: flex; justify-content: center; color: white; align-items: center; font-size: 5vmin; font-weight: bold; border: 2px solid #fff; flex-shrink: 0; }
+.card-face-back { background: linear-gradient(to bottom, #007bff, #0056b3); transform: rotateY(180deg); }
+.answer-text { flex-grow: 1; font-size: 5vmin; padding-right: 1vmin; font-family: 'Roboto Condensed', sans-serif; font-weight: 700; color: white; text-transform: uppercase; text-align: left; }
+.answer-points { font-family: 'Roboto Condensed', sans-serif; font-weight: 700; font-size: 5vmin; padding: 0.5vmin 1.5vmin; background-color: #01356d; color: white; border: 2px solid #fff; border-radius: 5px; flex-shrink: 0; }
+
+.bottom-panel { display: flex; justify-content: flex-end; align-items: center; margin-top: 1.5vmin; }
+.strikes-display { display: flex; gap: 10px; }
+.strike { font-size: 4vmin; color: red; font-weight: bold; text-shadow: 0 0 5px darkred; opacity: 0; transition: opacity 0.3s; }
+.strike.visible { opacity: 1; }
+
+.control-panel { margin-top: 20px; display: flex; justify-content: center; gap: 15px; flex-shrink: 0; }
+.control-panel button { padding: 10px 20px; font-size: 1rem; background-color: #ff8c00; color: #000; border: 2px solid #000; border-radius: 5px; cursor: pointer; font-weight: bold; }
+.control-panel .prev-button { background-color: #6c757d; color: white; }
+.control-panel .prev-game-button { background-color: #343a40; color: white; }
+.control-panel .next-game-button { background-color: #28a745; color: white; }
+
+.strike-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 9999; display: flex; justify-content: center; align-items: center; font-size: 40vmin; color: red; font-weight: bold; text-shadow: 0 0 20px darkred, 0 0 40px rgba(0, 0, 0, 0.7); animation: strike-fade 1s forwards; user-select: none; }
+@keyframes strike-fade { 0% { opacity: 1; transform: scale(1); } 80% { opacity: 1; transform: scale(1.1); } 100% { opacity: 0; transform: scale(1.2); } }
+
+.answer-slot.admin-view {
+  background: linear-gradient(to bottom, #007bff, #0056b3);
+  border-radius: 15px;
+  border: 1px solid #001f3f; /* Bordura interioara inchisa */
+  box-shadow: 0 0 0 2px #fff; /* Bordura exterioara alba */
+  cursor: pointer;
+  display: flex;
+}
+
+.answer-slot.admin-view .card-face-back {
+  transform: none; /* Anulam orice rotire */
+  justify-content: flex-start; /* CHEIA: Aliniem totul la stanga */
+  align-items: center; /* Aliniem pe verticala */
+  gap: 10px; /* Spatiu intre text si punctaj */
+  width: 100%;
+  border: none; /* Stilul e pe parinte acum */
+  box-shadow: none; /* Stilul e pe parinte acum */
+  background: transparent; /* Stilul e pe parinte acum */
+  padding: 0 1.5vmin; /* Adaugam padding intern */
+  margin-top: 30px;
+}
+
+/* Redefinim stilul textului DOAR pentru modul admin */
+.answer-slot.admin-view .answer-text {
+  flex-grow: 0; /* Important: nu lasam textul sa se intinda */
+  font-size: 4vmin; /* Ajustam dimensiunea */
+  padding-right: 0;
+  color: #cccccc; /* Culoare gri-deschis */
+  text-shadow: 1px 1px 1px #000; /* Umbra pentru lizibilitate */
+}
+
+/* Redefinim stilul punctajului DOAR pentru modul admin */
+.answer-slot.admin-view .answer-points {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 4vmin; /* Ajustam dimensiunea */
+  padding: 0.3vmin 1vmin;
+  background-color: #002244; /* Fundal albastru inchis */
   color: white;
+  border: 2px solid white;
+  border-radius: 5px;
+  margin-left: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+/* Stil pentru raspunsurile deja dezvaluite in modul admin */
+.answer-slot.admin-view.revealed {
+  background: #28a745; /* Verde */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.answer-slot.admin-view.revealed .answer-text,
+.answer-slot.admin-view.revealed .answer-points {
+  opacity: 0.6; /* Le facem semi-transparente */
+  text-decoration: line-through;
+}
+
+/* --- Stiluri pentru JOCUL "Apasa Primul" (/user1, /user2) --- */
+
+.pin-container, .user-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+.pin-container input {
+  font-size: 2rem;
+  padding: 10px;
+  width: 150px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.pin-container button, .reset-button {
+  font-size: 1.2rem;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+.error {
+  color: red;
+  font-weight: bold;
+}
+
+.big-red-button {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background-color: red;
+  border: 5px solid darkred;
+  color: white;
+  font-size: 3rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+.big-red-button:active {
+  transform: scale(0.95);
+}
+.big-red-button:disabled {
+  background-color: #555;
+  border-color: #333;
+  cursor: not-allowed;
+}
+
+/* Ecranul public de felicitari */
+.intermission-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  height: 100vh;
+}
+
+.intermission-title {
+  font-size: 15vmin;
+  color: #ffc107;
+  text-transform: uppercase;
+  margin-bottom: 2vmin;
+  text-shadow: 0 0 20px rgba(255, 193, 7, 0.8);
+  animation: pulse 2s infinite;
+}
+
+.intermission-container h2 {
+  font-size: 4vmin;
+  color: #ccc;
+}
+
+/* Ecranul de control al adminului */
+.admin-intermission-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  height: 100vh;
+  gap: 20px;
+}
+
+.admin-intermission-container h1 {
+  font-size: 5vmin;
+}
+
+.admin-intermission-container p {
+  font-size: 2vmin;
+  color: #aaa;
+}
+
+/* Reutilizam stilul butonului 'next-game' */
+.admin-intermission-container .next-game-button {
+  padding: 20px 40px;
+  font-size: 2rem;
+}
+
+.control-panel .wrong-answer-button {
+  background-color: #dc3545; /* Rosu */
+  color: white;
 }
