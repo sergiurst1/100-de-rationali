@@ -1,70 +1,41 @@
-# Getting Started with Create React App
+# 100 de Români - Aplicație Web Game Show
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+O aplicație web interactivă, inspirată de emisiunea TV "Ce spun românii" (versiunea românească a Family Feud). Proiectul este construit cu React și utilizează Firebase Realtime Database pentru a sincroniza perfect starea jocului între un panou de control al prezentatorului și un ecran public de afișare.
 
-## Available Scripts
+## ✨ Funcționalități Principale
 
-In the project directory, you can run:
+- **Sincronizare în Timp Real:** Acțiunile efectuate în panoul de admin (`/admin`) se reflectă instantaneu pe ecranul public (`/`), fără a fi nevoie de refresh.
+- **Panou de Control vs. Ecran Public:**
+    - `/admin`: O interfață completă pentru prezentator, cu butoane pentru navigare între întrebări și jocuri, adăugarea de greșeli și vizualizarea tuturor răspunsurilor posibile.
+    - `/`: Un ecran curat, destinat publicului, care afișează doar tabla de joc, scorul și animațiile.
+- **Seturi Multiple de Jocuri:** Aplicația suportă un număr nelimitat de "jocuri" (seturi de întrebări), permițând o rejucabilitate extinsă.
+- **Sistem de Greșeli (Strikes):**
+    - Adăugarea de greșeli care se contorizează pentru runda curentă.
+    - Un buton separat pentru a afișa un "X" de avertisment, fără a afecta contorul.
+    - Animație spectaculoasă pe tot ecranul, sincronizată pe ambele pagini.
+- **Ecrane Intermediare:** Pauze controlate de admin între seturile de jocuri, cu un afișaj festiv pentru public.
+- **Resetare la Pornire:** Starea jocului în Firebase se resetează automat la prima încărcare a panoului de admin într-o sesiune nouă de browser, asigurând un start curat de fiecare dată.
+- **Mini-Joc Bonus "Apasă Primul":**
+    - Paginile `/user1` și `/user2` implementează un joc independent de viteză.
+    - Jucătorii se autentifică cu un PIN, iar jocul pornește automat când ambii sunt gata.
+    - Primul care apasă butonul este declarat câștigător în timp real.
 
-### `npm start`
+## 🛠️ Tehnologii Folosite
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Frontend:** [React](https://reactjs.org/) (creat cu Create React App)
+- **Comunicare Real-time:** [Firebase Realtime Database](https://firebase.google.com/products/realtime-database)
+- **Routing:** [React Router DOM](https://reactrouter.com/)
+- **Stilizare:** CSS (Flexbox, Grid, Animations, `vmin` pentru scalabilitate)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🚀 Instalare și Rulare Locală
 
-### `npm test`
+Pentru a rula acest proiect pe mașina ta locală, urmează pașii de mai jos.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Cerințe
+- [Node.js](https://nodejs.org/) (versiunea 16 sau mai recentă)
+- `npm` sau `yarn`
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### 1. Configurează Proiectul
+După ce ai descărcat fișierele, navighează în folderul proiectului și rulează:
+```bash
+npm install
