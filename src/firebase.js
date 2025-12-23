@@ -7,7 +7,7 @@ import { getDatabase } from "firebase/database";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyAlem59VedElbcOnvcDudOMm89czIfIqAE",
+  apiKey: "YOUR_API_KEY",
   authDomain: "fastest-finger-game.firebaseapp.com",
   databaseURL: "https://fastest-finger-game-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "fastest-finger-game",
